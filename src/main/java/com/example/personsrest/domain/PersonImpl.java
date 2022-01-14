@@ -3,6 +3,7 @@ package com.example.personsrest.domain;
 import lombok.Data;
 
 import java.util.List;
+import java.util.UUID;
 
 @Data
 public class PersonImpl implements Person {
@@ -12,6 +13,13 @@ public class PersonImpl implements Person {
     int age;
     String city;
     List<String> groups;
+
+    public PersonImpl(String name, int age, String city) {
+        this.id = UUID.randomUUID().toString();
+        this.name = name;
+        this.age = age;
+        this.city = city;
+    }
 
     @Override
     public String getId() {
