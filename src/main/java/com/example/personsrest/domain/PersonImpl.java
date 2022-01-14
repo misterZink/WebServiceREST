@@ -1,10 +1,10 @@
 package com.example.personsrest.domain;
 
-import lombok.Value;
+import lombok.Data;
 
 import java.util.List;
 
-@Value
+@Data
 public class PersonImpl implements Person {
 
     String id;
@@ -15,37 +15,37 @@ public class PersonImpl implements Person {
 
     @Override
     public String getId() {
-        return null;
+        return id;
     }
 
     @Override
     public String getName() {
-        return null;
+        return name;
     }
 
     @Override
     public void setName(String name) {
-
+        this.name = name;
     }
 
     @Override
     public int getAge() {
-        return 0;
+        return age;
     }
 
     @Override
     public void setAge(int age) {
-
+        this.age = age;
     }
 
     @Override
     public String getCity() {
-        return null;
+        return city;
     }
 
     @Override
     public void setCity(String city) {
-
+        this.city = city;
     }
 
     @Override
@@ -60,16 +60,16 @@ public class PersonImpl implements Person {
 
     @Override
     public List<String> getGroups() {
-        return null;
+        return groups;
     }
 
     @Override
     public void addGroup(String groupId) {
-
+        groups.add(groupId);
     }
 
     @Override
     public void removeGroup(String groupId) {
-
+        groups.removeIf(group -> group.equalsIgnoreCase(groupId));
     }
 }
