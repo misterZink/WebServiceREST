@@ -20,7 +20,7 @@ public class PersonController {
 
     @GetMapping
     public List<PersonDTO> all() {
-        return personService.all()
+        return personService.all().stream()
                 .map(this::toDTO)
                 .collect(Collectors.toList());
     }

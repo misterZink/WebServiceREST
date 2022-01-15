@@ -15,7 +15,7 @@ public class PersonService {
         persons = List.of(new PersonEntity("Arne Anka", 12, "Stad", List.of()));
     }
 
-    public Stream<PersonEntity> all() {
-        return persons.stream();
+    public List<PersonEntity> all() {
+        return persons;
     }
 }
