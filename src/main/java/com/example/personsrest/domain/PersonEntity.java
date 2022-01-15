@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Data
-public class PersonImpl implements Person {
+public class PersonEntity implements Person {
 
     String id;
     String name;
@@ -14,11 +14,12 @@ public class PersonImpl implements Person {
     String city;
     List<String> groups;
 
-    public PersonImpl(String name, int age, String city) {
+    public PersonEntity(String name, int age, String city, List<String> groups) {
         this.id = UUID.randomUUID().toString();
         this.name = name;
         this.age = age;
         this.city = city;
+        this.groups = groups;
     }
 
     @Override
