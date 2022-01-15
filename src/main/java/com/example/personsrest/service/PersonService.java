@@ -4,10 +4,18 @@ import com.example.personsrest.domain.PersonEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 @Service
 public class PersonService {
-    public List<PersonEntity> all() {
-        return List.of(new PersonEntity("Arne Anka", 12, "Stad", List.of()));
+
+    List<PersonEntity> persons;
+
+    public PersonService() {
+        persons = List.of(new PersonEntity("Arne Anka", 12, "Stad", List.of()));
+    }
+
+    public Stream<PersonEntity> all() {
+        return persons.stream();
     }
 }
