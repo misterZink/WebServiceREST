@@ -1,21 +1,22 @@
 package com.example.personsrest.service;
 
+import com.example.personsrest.domain.Person;
 import com.example.personsrest.domain.PersonEntity;
+import com.example.personsrest.domain.PersonRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Stream;
 
 @Service
+@AllArgsConstructor
 public class PersonService {
 
-    List<PersonEntity> persons;
+    PersonRepository personRepository;
 
-    public PersonService() {
-        persons = List.of(new PersonEntity("Arne Anka", 12, "Stad", List.of()));
-    }
 
-    public List<PersonEntity> all() {
-        return persons;
+    public List<Person> findAll() {
+        return personRepository.findAll();
     }
 }

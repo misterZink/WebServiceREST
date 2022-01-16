@@ -7,6 +7,13 @@ import java.util.List;
 import java.util.Optional;
 
 public class PersonRepositoryImpl implements PersonRepository {
+
+    List<Person> persons;
+
+    public PersonRepositoryImpl() {
+        persons = List.of(new PersonEntity("Arne Anka", 12, "Stad", List.of()));
+    }
+
     @Override
     public Optional<Person> findById(String id) {
         return Optional.empty();
@@ -14,7 +21,7 @@ public class PersonRepositoryImpl implements PersonRepository {
 
     @Override
     public List<Person> findAll() {
-        return null;
+        return persons;
     }
 
     @Override

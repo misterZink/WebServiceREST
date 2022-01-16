@@ -1,5 +1,6 @@
 package com.example.personsrest.controller;
 
+import com.example.personsrest.domain.Person;
 import com.example.personsrest.domain.PersonDTO;
 import com.example.personsrest.domain.PersonEntity;
 import com.example.personsrest.service.PersonService;
@@ -20,18 +21,18 @@ public class PersonController {
 
     @GetMapping
     public List<PersonDTO> all() {
-        return personService.all().stream()
+        return personService.findAll().stream()
                 .map(this::toDTO)
                 .collect(Collectors.toList());
     }
 
-    public PersonDTO toDTO(PersonEntity personEntity) {
+    public PersonDTO toDTO(Person person) {
         return new PersonDTO(
-                personEntity.getId(),
-                personEntity.getName(),
-                personEntity.getCity(),
-                personEntity.getAge(),
-                personEntity.getGroups());
+                person.getId(),
+                person.getName(),
+                person.getCity(),
+                person.getAge(),
+                person.getGroups());
     }
 
 }
