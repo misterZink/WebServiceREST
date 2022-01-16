@@ -42,6 +42,10 @@ public class PersonController {
                 updatePerson.getAge()));
     }
 
+    @DeleteMapping("/{id}")
+    public void deletePerson(@PathVariable("id") String id) {
+        personService.delete(id);
+    }
 
     public PersonDTO toDTO(Person person) {
 

@@ -39,4 +39,8 @@ public class PersonService {
             return null;
         }
     }
+
+    public void delete(String id) {
+        personRepository.findById(id).ifPresent(person -> personRepository.delete(id));
+    }
 }
