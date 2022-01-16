@@ -3,15 +3,15 @@ package com.example.personsrest.domain;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class PersonRepositoryImpl implements PersonRepository {
 
-    List<Person> persons;
+    Map<String, Person> persons = new HashMap<>();
 
     public PersonRepositoryImpl() {
-        persons = List.of(new PersonEntity("Arne Anka", 12, "Stad", List.of()));
+        Person person = new PersonEntity("Arne Anka", 12, "Stad", List.of());
+        persons.put(person.getId(), person);
     }
 
     @Override
@@ -21,7 +21,7 @@ public class PersonRepositoryImpl implements PersonRepository {
 
     @Override
     public List<Person> findAll() {
-        return persons;
+        return new ArrayList<>(persons.values());
     }
 
     @Override
@@ -36,7 +36,7 @@ public class PersonRepositoryImpl implements PersonRepository {
 
     @Override
     public Person save(Person person) {
-        return null;
+        return persons.put(person.getId(),person);
     }
 
     @Override

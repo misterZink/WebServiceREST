@@ -1,5 +1,6 @@
 package com.example.personsrest.service;
 
+import com.example.personsrest.domain.CreatePerson;
 import com.example.personsrest.domain.Person;
 import com.example.personsrest.domain.PersonEntity;
 import com.example.personsrest.domain.PersonRepository;
@@ -15,8 +16,11 @@ public class PersonService {
 
     PersonRepository personRepository;
 
-
     public List<Person> findAll() {
         return personRepository.findAll();
+    }
+
+    public Person save(CreatePerson createPerson) {
+        return personRepository.save(new PersonEntity(createPerson.getName(),createPerson.getAge(),createPerson.getCity(),List.of()));
     }
 }
