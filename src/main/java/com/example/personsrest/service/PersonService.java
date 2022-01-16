@@ -1,9 +1,6 @@
 package com.example.personsrest.service;
 
-import com.example.personsrest.domain.CreatePerson;
-import com.example.personsrest.domain.Person;
-import com.example.personsrest.domain.PersonEntity;
-import com.example.personsrest.domain.PersonRepository;
+import com.example.personsrest.domain.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -40,7 +37,13 @@ public class PersonService {
         }
     }
 
-    public void delete(String id) {
-        personRepository.findById(id).ifPresent(person -> personRepository.delete(id));
+    public Person delete(String id) {
+        Person person = personRepository.findById(id).orElse(null);
+        if (person != null) {
+            personRepository.delete(id);
+            return person;
+        } else {
+            return null;
+        }
     }
 }
