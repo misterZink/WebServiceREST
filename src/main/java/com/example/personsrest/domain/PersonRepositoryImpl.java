@@ -28,10 +28,10 @@ public class PersonRepositoryImpl implements PersonRepository {
 
     @Override
     public Page<Person> findAllByNameContainingOrCityContaining(String name, String city, Pageable pageable) {
-        List<Person> list = persons.values().stream()
+        return new PageImpl<>(
+                persons.values().stream()
                         .filter(person -> person.getName().equalsIgnoreCase(name))
-                        .collect(Collectors.toList());
-        return new PageImpl<>(list);
+                        .collect(Collectors.toList()));
     }
 
     @Override

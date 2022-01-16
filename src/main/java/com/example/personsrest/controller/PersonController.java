@@ -18,14 +18,10 @@ public class PersonController {
     PersonService personService;
 
     @GetMapping
-    public List<PersonDTO> findAll(@RequestParam (required = false)Map<String, String> searchParams) {
-        if (searchParams.isEmpty()) {
-            return personService.findAll().stream()
-                    .map(this::toDTO)
-                    .collect(Collectors.toList());
-        } else {
-            return personService.find(searchParams).stream().map(this::toDTO).collect(Collectors.toList());
-        }
+    public List<PersonDTO> findAll(@RequestParam(required = false) Map<String, String> searchParams) {
+        return searchParams.isEmpty()
+                ? personService.findAll().stream().map(this::toDTO).collect(Collectors.toList())
+                : personService.find(searchParams).stream().map(this::toDTO).collect(Collectors.toList());
     }
 
     @PostMapping
@@ -42,10 +38,10 @@ public class PersonController {
     public PersonDTO updatePerson(@PathVariable("id") String id, @RequestBody UpdatePerson updatePerson) {
         return toDTO(
                 personService.update(
-                id,
-                updatePerson.getName(),
-                updatePerson.getCity(),
-                updatePerson.getAge()));
+                        id,
+                        updatePerson.getName(),
+                        updatePerson.getCity(),
+                        updatePerson.getAge()));
     }
 
     @DeleteMapping("/{id}")

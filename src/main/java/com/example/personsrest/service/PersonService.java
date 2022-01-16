@@ -56,14 +56,11 @@ public class PersonService {
     }
 
     public Page<Person> find(Map<String, String> searchParams) {
-        PageRequest pageRequest;
-        if (searchParams.containsKey("pagesize") && searchParams.containsKey("pagenumber")) {
-            pageRequest = PageRequest.of(
-                    Integer.parseInt(searchParams.get("pagenumber")),
-                    Integer.parseInt(searchParams.get("pagesize")));
-        } else {
-            pageRequest = PageRequest.of(1, 20);
-        }
+        PageRequest pageRequest = (searchParams.containsKey("pagesize") && searchParams.containsKey("pagenumber"))
+                ? PageRequest.of(
+                Integer.parseInt(searchParams.get("pagenumber")),
+                Integer.parseInt(searchParams.get("pagesize")))
+                : PageRequest.of(1, 20);
 
         return personRepository.findAllByNameContainingOrCityContaining(searchParams.get("search"), searchParams.get("search"), pageRequest);
     }
