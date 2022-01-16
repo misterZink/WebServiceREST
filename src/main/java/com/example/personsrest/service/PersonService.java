@@ -2,9 +2,12 @@ package com.example.personsrest.service;
 
 import com.example.personsrest.domain.*;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 
 @Service
@@ -18,7 +21,12 @@ public class PersonService {
     }
 
     public Person save(CreatePerson createPerson) {
-        return personRepository.save(new PersonEntity(createPerson.getName(),createPerson.getAge(),createPerson.getCity(),List.of()));
+        return personRepository.save(
+                new PersonEntity(
+                        createPerson.getName(),
+                        createPerson.getAge(),
+                        createPerson.getCity(),
+                        List.of()));
     }
 
     public Person findById(String id) {
@@ -45,5 +53,18 @@ public class PersonService {
         } else {
             return null;
         }
+    }
+
+    public Page<Person> find(Map<String, String> searchParams) {
+        PageRequest pageRequest;
+        if (searchParams.containsKey("pagesize") && searchParams.containsKey("pagenumber")) {
+            pageRequest = PageRequest.of(
+                    Integer.parseInt(searchParams.get("pagenumber")),
+                    Integer.parseInt(searchParams.get("pagesize")));
+        } else {
+            pageRequest = PageRequest.of(1, 20);
+        }
+
+        return personRepository.findAllByNameContainingOrCityContaining(searchParams.get("search"), searchParams.get("search"), pageRequest);
     }
 }

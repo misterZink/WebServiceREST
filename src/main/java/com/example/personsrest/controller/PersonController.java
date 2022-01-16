@@ -3,9 +3,11 @@ package com.example.personsrest.controller;
 import com.example.personsrest.domain.*;
 import com.example.personsrest.service.PersonService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -16,10 +18,14 @@ public class PersonController {
     PersonService personService;
 
     @GetMapping
-    public List<PersonDTO> findAll() {
-        return personService.findAll().stream()
-                .map(this::toDTO)
-                .collect(Collectors.toList());
+    public List<PersonDTO> findAll(@RequestParam (required = false)Map<String, String> searchParams) {
+        if (searchParams.isEmpty()) {
+            return personService.findAll().stream()
+                    .map(this::toDTO)
+                    .collect(Collectors.toList());
+        } else {
+            return personService.find(searchParams).stream().map(this::toDTO).collect(Collectors.toList());
+        }
     }
 
     @PostMapping
