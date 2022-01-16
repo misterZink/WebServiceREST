@@ -1,9 +1,6 @@
 package com.example.personsrest.controller;
 
-import com.example.personsrest.domain.CreatePerson;
-import com.example.personsrest.domain.Person;
-import com.example.personsrest.domain.PersonDTO;
-import com.example.personsrest.domain.PersonEntity;
+import com.example.personsrest.domain.*;
 import com.example.personsrest.service.PersonService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +30,16 @@ public class PersonController {
     @GetMapping("/{id}")
     public PersonDTO findById(@PathVariable("id") String id) {
         return toDTO(personService.findById(id));
+    }
+
+    @PutMapping("/{id}")
+    public PersonDTO updatePerson(@PathVariable("id") String id, @RequestBody UpdatePerson updatePerson) {
+        return toDTO(
+                personService.update(
+                id,
+                updatePerson.getName(),
+                updatePerson.getCity(),
+                updatePerson.getAge()));
     }
 
 

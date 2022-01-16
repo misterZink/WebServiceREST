@@ -27,4 +27,16 @@ public class PersonService {
     public Person findById(String id) {
         return personRepository.findById(id).orElse(null);
     }
+
+    public Person update(String id, String name, String city, int age) {
+        Person person = personRepository.findById(id).orElse(null);
+        if (person != null) {
+            person.setName(name);
+            person.setCity(city);
+            person.setAge(age);
+            return personRepository.save(person);
+        } else {
+            return null;
+        }
+    }
 }
