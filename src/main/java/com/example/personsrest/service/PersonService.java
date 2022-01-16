@@ -23,4 +23,8 @@ public class PersonService {
     public Person save(CreatePerson createPerson) {
         return personRepository.save(new PersonEntity(createPerson.getName(),createPerson.getAge(),createPerson.getCity(),List.of()));
     }
+
+    public Person findById(String id) {
+        return personRepository.findById(id).orElse(null);
+    }
 }

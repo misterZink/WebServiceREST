@@ -30,8 +30,14 @@ public class PersonController {
         return toDTO(personService.save(createPerson));
     }
 
+    @GetMapping("/{id}")
+    public PersonDTO findById(@PathVariable("id") String id) {
+        return toDTO(personService.findById(id));
+    }
+
 
     public PersonDTO toDTO(Person person) {
+
         return new PersonDTO(
                 person.getId(),
                 person.getName(),
