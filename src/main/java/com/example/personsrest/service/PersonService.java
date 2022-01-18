@@ -1,6 +1,10 @@
 package com.example.personsrest.service;
 
-import com.example.personsrest.domain.*;
+import com.example.personsrest.domain.CreatePerson;
+import com.example.personsrest.domain.Person;
+import com.example.personsrest.domain.PersonEntity;
+import com.example.personsrest.domain.PersonRepository;
+import com.example.personsrest.remote.GroupRemote;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -8,13 +12,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
 
 @Service
 @AllArgsConstructor
 public class PersonService {
 
     PersonRepository personRepository;
+    GroupRemote groupRemote;
 
     public List<Person> findAll() {
         return personRepository.findAll();
@@ -64,4 +68,16 @@ public class PersonService {
 
         return personRepository.findAllByNameContainingOrCityContaining(searchParams.get("search"), searchParams.get("search"), pageRequest);
     }
+
+    public Person addGroup(String id, String groupName) {
+        Person person = personRepository.findById(id).get();
+        String group = groupRemote.createGroup(groupName);
+        person.addGroup(group);
+        return personRepository.save(person);
+    }
+
+    public String getGroupNameById(String groupId) {
+        return groupRemote.getNameById(groupId);
+    }
+
 }

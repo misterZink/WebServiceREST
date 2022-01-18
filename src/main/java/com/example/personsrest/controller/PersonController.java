@@ -3,7 +3,6 @@ package com.example.personsrest.controller;
 import com.example.personsrest.domain.*;
 import com.example.personsrest.service.PersonService;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -49,6 +48,11 @@ public class PersonController {
         return toDTO(personService.delete(id));
     }
 
+    @PutMapping("/{id}/addGroup/{groupName}")
+    public PersonDTO addGroup(@PathVariable("id") String id, @PathVariable("groupName") String groupName) {
+        return toDTO(personService.addGroup(id, groupName));
+    }
+
     public PersonDTO toDTO(Person person) {
 
         return new PersonDTO(
@@ -56,7 +60,10 @@ public class PersonController {
                 person.getName(),
                 person.getCity(),
                 person.getAge(),
-                person.getGroups());
+                person.getGroups().stream()
+                        .map(groupId -> personService.getGroupNameById(groupId))
+                        .collect(Collectors.toList())
+        );
     }
 
 }
