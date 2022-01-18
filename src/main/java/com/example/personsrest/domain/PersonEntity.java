@@ -17,7 +17,6 @@ public class PersonEntity implements Person {
     String name;
     int age;
     String city;
-    boolean isActive;
     List<String> groups;
 
     public PersonEntity(String name, int age, String city, List<String> groups) {

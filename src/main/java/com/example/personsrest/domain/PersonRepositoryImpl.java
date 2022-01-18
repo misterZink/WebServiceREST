@@ -41,7 +41,8 @@ public class PersonRepositoryImpl implements PersonRepository {
 
     @Override
     public Person save(Person person) {
-        return persons.put(person.getId(), person);
+        persons.put(person.getId(), person);
+        return person;
     }
 
     @Override
