@@ -1,5 +1,6 @@
 package com.example.personsrest.service;
 
+import com.example.personsrest.KeyCloakToken;
 import com.example.personsrest.domain.CreatePerson;
 import com.example.personsrest.domain.Person;
 import com.example.personsrest.domain.PersonEntity;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.Map;
 
@@ -80,4 +82,10 @@ public class PersonService {
         return groupRemote.getNameById(groupId);
     }
 
+    public Person removeGroup(String id, String groupName) {
+        return personRepository.findById(id).map(person -> {
+            person.removeGroup(groupName);
+            return personRepository.save(person);
+        }).orElse(null);
+    }
 }

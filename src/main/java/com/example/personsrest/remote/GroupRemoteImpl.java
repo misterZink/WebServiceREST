@@ -40,6 +40,12 @@ public class GroupRemoteImpl implements GroupRemote {
 
     @Override
     public String removeGroup(String name) {
-        return null;
+        return Objects.requireNonNull(webClient
+                .delete()
+                .uri("api/groups/" + name)
+                .header("Authorization", "Bearer " + token.getAccessToken())
+                .retrieve()
+                .bodyToMono(Group.class)
+                .block()).getName();
     }
 }
