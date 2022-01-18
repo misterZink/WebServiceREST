@@ -70,10 +70,10 @@ public class PersonService {
     }
 
     public Person addGroup(String id, String groupName) {
-        Person person = personRepository.findById(id).get();
-        String group = groupRemote.createGroup(groupName);
-        person.addGroup(group);
-        return personRepository.save(person);
+        return personRepository.findById(id).map(person -> {
+            person.addGroup(groupRemote.createGroup(groupName));
+            return personRepository.save(person);
+        }).orElse(null);
     }
 
     public String getGroupNameById(String groupId) {

@@ -7,6 +7,7 @@ import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.time.Duration;
+import java.util.Objects;
 
 public class GroupRemoteImpl implements GroupRemote {
 
@@ -16,17 +17,17 @@ public class GroupRemoteImpl implements GroupRemote {
 
     @Override
     public String getNameById(String groupName) {
-        return webClient
+        return Objects.requireNonNull(webClient
                 .get().uri("api/groups/" + groupName)
                 .header("Authorization", "Bearer " + token.getAccessToken())
                 .retrieve()
                 .bodyToMono(Group.class)
-                .block().getName();
+                .block()).getName();
     }
 
     @Override
     public String createGroup(String name) {
-        return webClient
+        return Objects.requireNonNull(webClient
                 .post()
                 .uri("api/groups")
                 .header("Authorization", "Bearer " + token.getAccessToken())
@@ -34,7 +35,7 @@ public class GroupRemoteImpl implements GroupRemote {
                 .body(BodyInserters.fromValue(new CreateGroup(name)))
                 .retrieve()
                 .bodyToMono(Group.class)
-                .block().getName();
+                .block()).getName();
     }
 
     @Override
