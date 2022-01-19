@@ -35,7 +35,7 @@ public class GroupRemoteImpl implements GroupRemote {
                 .body(BodyInserters.fromValue(new CreateGroup(name)))
                 .retrieve()
                 .bodyToMono(Group.class)
-                .block()).getName();
+                .block()).getId();
     }
 
     @Override

@@ -12,7 +12,7 @@ public class PersonRepositoryImpl implements PersonRepository {
     Map<String, Person> persons = new HashMap<>();
 
     public PersonRepositoryImpl() {
-        Person person = new PersonEntity("Arne Anka", 12, "Stad", List.of());
+        Person person = new PersonEntity("Arne Anka", 12, "Stad", new ArrayList<>());
         persons.put(person.getId(), person);
     }
 
