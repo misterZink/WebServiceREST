@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 @Service
 @AllArgsConstructor
@@ -83,8 +84,15 @@ public class PersonService {
 
     public Person removeGroup(String id, String groupName) {
         return personRepository.findById(id).map(person -> {
-            person.removeGroup(groupName);
+            if (isUUID(groupName)) person.removeGroup(groupName);
+            else person.getGroups().removeIf(group -> groupRemote.getNameById(group).equalsIgnoreCase(groupName));
             return personRepository.save(person);
         }).orElse(null);
     }
+
+    private boolean isUUID(String groupName) {
+        String uuidRegex = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}";
+        return Pattern.compile(uuidRegex).matcher(groupName).matches();
+    }
+
 }
